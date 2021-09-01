@@ -3,7 +3,15 @@ project(compiler_vm)
 
 set(CMAKE_CXX_STANDARD 20)
 
+# CTest
+enable_testing()
+
 add_subdirectory(ext/fmt)
+add_subdirectory(ext/gtest)
+
+add_subdirectory(tests)
+
+include_directories(ext/gtest/googletest)
 include_directories(ext/fmt/include common parser)
 link_directories(${CMAKE_BINARY_DIR}/fmt)
 
@@ -18,6 +26,7 @@ add_executable(compiler_vm
         common/result.hh
         common/result_message.hh
         common/errors.hh
+        common/errors.cc
         parser/token.cc
         parser/token.hh
         parser/nfa_state.hh
@@ -26,9 +35,10 @@ add_executable(compiler_vm
         parser/lexer.cc
         parser/lexer.hh
         parser/regex.hh
+        parser/regex.cc
         parser/dfa.hh
-        parser/definition.hh
-        parser/definition.cc
+        parser/regex_def.hh
+        parser/regex_def.cc
         test.cc)
 
 target_link_libraries(compiler_vm fmt)

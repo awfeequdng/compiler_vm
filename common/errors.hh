@@ -4,7 +4,8 @@
 
 namespace CompilerVm
 {
-    std::map<std::string, std::string> errorMap = {
-        {"B001", "Bad definition name"},
+    class Errors {
+    public:
+        static std::map<std::string, std::string> errorMap;
     };
 } // namespace CompilerVm

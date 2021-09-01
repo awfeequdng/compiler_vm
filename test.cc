@@ -1,10 +1,15 @@
 #include <iostream>
 #include "hex_formatter.hh"
+#include <fmt/color.h>
+#include <fmt/core.h>
+#include <map>
+
+using namespace std;
 
 struct test1 {
     test1() {
         std::cout << "test1 construct" << std::endl;
-    }    
+    }
       int a = 0;
       int b = 1;
   };
@@ -56,4 +61,21 @@ struct test1 {
     //   std::cout << std::hex << "addr of c is : " << (unsigned long)&c << std::endl;
 
     //   std::cout << std::hex << "c: " << c << std::endl;
+
+    // fmt::print(fmt::color::red, "hello {}\n", "world");
+    fmt::print("Hello, {}!\n", "world");
+
+    map<string, string> defs = {
+        {"cai", "cai1"},
+        {"peng", "peng1"},
+        {"xiang", "xiang1"},
+    };
+    // fmt::memory_buffer out;
+    string tt1 = "my name is {cai}\n";
+    string name = "cai";
+    // fmt::print(tt1, defs[name]_a);
+    using namespace fmt::literals;
+    for (auto e: defs)
+        std::cout << fmt::format(tt1, fmt::arg(e.first.c_str(), e.second.c_str()));
+    // std::cout <<  << std::endl;
   }

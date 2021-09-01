@@ -17,4 +17,14 @@ namespace CompilerVm
         return result;
     }
 
+    string StrUtil::trim(string str) {
+        if (str.empty()) return str;
+
+        string whitespace = "\t ";
+        for (auto c: whitespace) {
+            str.erase(0, str.find_first_not_of(c));
+            str.erase(str.find_last_not_of(c) + 1);
+        }
+        return str;
+    }
 } // namespace CompilerVm
