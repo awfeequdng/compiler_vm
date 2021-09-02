@@ -24,7 +24,7 @@ foreach (compiler_vm_test_source ${COMPILER_VM_TEST_SOURCES})
     add_dependencies(build-tests ${compiler_vm_test_name})
     add_dependencies(check-tests ${compiler_vm_test_name})
 
-    target_link_libraries(${compiler_vm_test_name} gtest gmock_main)
+    target_link_libraries(${compiler_vm_test_name} compiler_vm_shared fmt gtest gmock_main)
 
     # Set test target properties and dependencies.
     set_target_properties(${compiler_vm_test_name}

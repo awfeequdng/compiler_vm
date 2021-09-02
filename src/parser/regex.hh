@@ -56,12 +56,13 @@ namespace CompilerVm
 			for (std::string expr: _regexes) {
 				auto spos = expr.find('{');
 				while (spos != expr.npos) {
-					auto epos = expr.find(spos + 1, '}');
+					auto epos = expr.find('}', spos + 1);
 					if (epos == expr.npos) {
-						r.error("B002", fmt::format("{}, regex: {}", Errors::errorMap["B002"], expr));
+						r.error("B002", fmt::format("{}, regex: {}, spos: {}, epos: {}",
+							Errors::errorMap["B002"], expr, spos, epos));
 						return;
 					}
-					std::string name = expr.substr(spos + 1, epos);
+					std::string name = expr.substr(spos + 1, epos - spos - 1);
 					name = StrUtil::trim(name);
 					std::string token = _regexDef.getRegexDef(name, r);
 					if (r.isFailed()) {
@@ -73,6 +74,10 @@ namespace CompilerVm
 				regexTmp.emplace_back(expr);
 			}
 			_regexes.swap(regexTmp);
+		}
+
+		const std::vector<std::string>& getRegex() const {
+			return _regexes;
 		}
 	private:
 		RegexDef _regexDef;
